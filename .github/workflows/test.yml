@@ -19,3 +19,11 @@ jobs:
 
       - name: investigate-context
         run: echo '${{ toJSON(github) }}'
+
+      - name: get changes
+        id: get_changed_files
+        run: |
+          echo "Changed files:"
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} > changed_files.txt
+          cat changed_files.txt
+          echo "::set-output name=changed_files::$(cat changed_files.txt)"
