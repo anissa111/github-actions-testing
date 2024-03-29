@@ -17,7 +17,7 @@ def find_info(context):
     curr = context['event']['after']
 
     # run git diff
-    os.system(f'git diff {base} {head}')
+    os.system(f'git diff {base} {head} --name-status')
     #os.system('git branch -l')
 
 
