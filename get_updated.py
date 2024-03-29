@@ -12,8 +12,8 @@ def get_updated():
 
 
 if __name__ == '__main__':
-    with open('new.json') as f:
-        context = json.load(sys.argv[1])
+    with open(sys.argv[1]) as f:
+        context = json.load(f)
 
     print(context)
 
