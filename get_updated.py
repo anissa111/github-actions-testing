@@ -50,7 +50,7 @@ if __name__ == '__main__':
     elif args.moved_deleted:
         print(get_moved_deleted(diff))
     else:
-        [print(e) for e in out]
+        print(','.join(out) if len(out) > 0 else '')
 
 
 
