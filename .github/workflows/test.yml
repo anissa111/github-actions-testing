@@ -23,4 +23,5 @@ jobs:
       - name: get changes
         id: get_changed_files
         run: |
+          ls
           python get_updated.py github-context.json
