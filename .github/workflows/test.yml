@@ -33,7 +33,9 @@ jobs:
           echo "changed_files=$changed_files" >> "$GITHUB_OUTPUT"
           env_changes=$(python get_updated.py github-context.json --env)
           echo "env_changes=$env_changes" >> "$GITHUB_OUTPUT"
+          echo $env_changes
 
       - name: print-output
         run: |
-          echo $GITHUB_OUTPUT
+          echo ${{ steps.get_changed_files.outputs.changed_files }}
+          echo ${{ steps.get_changed_files.outputs.env_changes }}
