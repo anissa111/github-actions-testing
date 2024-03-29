@@ -12,10 +12,11 @@ def get_updated():
 
 
 if __name__ == '__main__':
-    #context = json.loads(sys.argv[1])
+    with open('new.json') as f:
+        context = json.load(sys.argv[1])
 
-    # open and print raw file from sys.argv[1]
-    print(open(sys.argv[1]).read())
+    print(context)
+
 
 
 
