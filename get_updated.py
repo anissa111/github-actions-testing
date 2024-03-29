@@ -12,13 +12,13 @@ def get_updated():
     return [file['filename'] for file in files]
 
 def find_info(context):
-    #head = context['event']['pull_request']['base']['sha']
+    head = context['event']['pull_request']['head']['sha']
     base = context['event']['pull_request']['base']['ref']
     curr = context['event']['after']
 
     # run git diff
-    #os.system(f'git diff {base}')
-    os.system('git branch -l')
+    os.system(f'git diff {base} {head}')
+    #os.system('git branch -l')
 
 
 if __name__ == '__main__':
