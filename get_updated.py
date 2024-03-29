@@ -13,7 +13,7 @@ def get_updated():
 
 def find_info(context):
     head = context['event']['pull_request']['head']['sha']
-    base = context['event']['pull_request']['base']['ref']
+    base = context['event']['pull_request']['base']['sha']
     curr = context['event']['after']
 
     # run git diff
