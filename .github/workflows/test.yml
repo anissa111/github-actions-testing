@@ -11,8 +11,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  get-changes:
     runs-on: ubuntu-latest
+    outputs:
+        changed_files: ${{ steps.get_changed_files.outputs.changed_files }}
+        env_changes: ${{ steps.get_changed_files.outputs.env_changes }}
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -22,8 +25,12 @@ jobs:
       - name: investigate-context
         run: echo '${{ toJSON(github) }}' > github-context.json
 
-      - name: get changes
+      - name: get_changed_files
         id: get_changed_files
         run: |
-          ls
-          python get_updated.py github-context.json
+          echo "changed_files=$(python get_updated.py github-context.json)" >> "$GITHUB_OUTPUT"
+          echo "env_changes=$(python get_updated.py github-context.json --env)" >> "$GITHUB_OUTPUT"
+
+      - name: print-output
+        run: |
+          echo $GITHUB_OUTPUT

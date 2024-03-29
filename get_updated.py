@@ -1,31 +1,57 @@
+import argparse
 import json
-
-import requests
+import subprocess
 import sys
-import os
 
 
-def get_updated():
-    url = f'https://api.github.com/repos/{repo}/pulls/{pr}/files'
-    response = requests.get(url)
-    files = response.json()
-    return [file['filename'] for file in files]
-
-def find_info(context):
+def get_diff(context):
     head = context['event']['pull_request']['head']['sha']
     base = context['event']['pull_request']['base']['sha']
-    curr = context['event']['after']
 
     # run git diff
-    os.system(f'git diff {base} {head} --name-status')
-    #os.system('git branch -l')
+    diff = subprocess.run(['git', 'diff', base, head, '--name-status'], capture_output=True, text=True).stdout
+    diff = [e.split('\t') for e in diff.split('\n') if len(e) > 0]
+
+    return diff
+
+def get_new_modified(diff):
+    new_and_modified = [e[1] for e in diff if e[0] in ['A', 'M']]
+
+    return new_and_modified
+
+def get_moved_deleted(diff):
+    moved_and_deleted = [e[1] for e in diff if e[0] in ['D', 'R']]
+
+    return moved_and_deleted
+
+def get_changed_env_files(diff):
+    changed_env = [e[1] for e in diff if (e[1].endswith('.yml') or e[1].endswith('.yaml')) and not e[1].startswith('.github/workflows')]
+    return changed_env
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('context_file', help='The JSON file containing the GitHub context')
+    parser.add_argument('--env', action='store_true', help='Indicate only whether there are environment changes')
+    parser.add_argument('--env-files', action='store_true', help='Return environment files that have been changed')
+    parser.add_argument('--moved_deleted', action='store_true', help='Return files that have been moved or deleted')
+    args = parser.parse_args()
+
     with open(sys.argv[1]) as f:
         context = json.load(f)
 
-    find_info(context)
+    diff = get_diff(context)
+    out = get_new_modified(diff)
+
+    if args.env:
+        print('true' if len(get_changed_env_files(diff)) > 0 else 'false')
+    elif args.env_files:
+        print(get_changed_env_files(diff))
+    elif args.moved_deleted:
+        print(get_moved_deleted(diff))
+    else:
+        [print(e) for e in out]
+
 
 
 
