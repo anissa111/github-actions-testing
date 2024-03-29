@@ -28,8 +28,10 @@ jobs:
       - name: get_changed_files
         id: get_changed_files
         run: |
-          echo "changed_files=$(python get_updated.py github-context.json)" >> "$GITHUB_OUTPUT"
-          echo "env_changes=$(python get_updated.py github-context.json --env)" >> "$GITHUB_OUTPUT"
+          changed_files=$(python get_updated.py github-context.json)
+          echo "changed_files=$changed_files" >> "$GITHUB_OUTPUT"
+          env_changes=$(python get_updated.py github-context.json --env)
+          echo "env_changes=$env_changes" >> "$GITHUB_OUTPUT"
 
       - name: print-output
         run: |
