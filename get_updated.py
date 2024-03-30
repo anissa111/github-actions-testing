@@ -53,9 +53,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     with open(sys.argv[1]) as f:
-        context = json.load(f)
+        github_context = json.load(f)
 
-    diff = get_diff(context)
+    diff = get_diff(github_context)
     out = get_new_modified(diff)
 
     if args.env:
