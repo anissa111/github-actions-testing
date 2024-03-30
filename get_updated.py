@@ -16,6 +16,7 @@ def prev_curr(context):
         raise ValueError('Event type not supported')
 
 
+
 def get_diff(context):
     base, head = prev_curr(context)
 
