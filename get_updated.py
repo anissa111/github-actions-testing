@@ -3,16 +3,18 @@ import json
 import subprocess
 import sys
 
+
 def prev_curr(context):
     # get prev and curr commit if event type is push
-    if context['event']['name'] == 'push':
+    if context['event_name'] == 'push':
         return context['event']['before'], context['event']['after']
 
     # get prev and curr commit if event type is pull_request
-    elif context['event']['name'] == 'pull_request':
+    elif context['event_name'] == 'pull_request':
         return context['event']['pull_request']['base']['sha'], context['event']['pull_request']['head']['sha']
     else:
         return None, None
+
 
 def get_diff(context):
     base, head = prev_curr(context)
@@ -29,13 +31,16 @@ def get_new_modified(diff):
 
     return new_and_modified
 
+
 def get_moved_deleted(diff):
     moved_and_deleted = [e[1] for e in diff if e[0] in ['D', 'R']]
 
     return moved_and_deleted
 
+
 def get_changed_env_files(diff):
-    changed_env = [e[1] for e in diff if (e[1].endswith('.yml') or e[1].endswith('.yaml')) and not e[1].startswith('.github/workflows')]
+    changed_env = [e[1] for e in diff if
+                   (e[1].endswith('.yml') or e[1].endswith('.yaml')) and not e[1].startswith('.github/workflows')]
     return changed_env
 
 
@@ -61,9 +66,3 @@ if __name__ == '__main__':
         print(get_moved_deleted(diff))
     else:
         print(','.join(out) if len(out) > 0 else '')
-
-
-
-
-
-
