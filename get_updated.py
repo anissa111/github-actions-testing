@@ -3,16 +3,26 @@ import json
 import subprocess
 import sys
 
+def prev_curr(context):
+    # get prev and curr commit if event type is push
+    if context['event']['name'] == 'push':
+        return context['event']['before'], context['event']['after']
+
+    # get prev and curr commit if event type is pull_request
+    elif context['event']['name'] == 'pull_request':
+        return context['event']['pull_request']['base']['sha'], context['event']['pull_request']['head']['sha']
+    else:
+        return None, None
 
 def get_diff(context):
-    head = context['event']['pull_request']['head']['sha']
-    base = context['event']['pull_request']['base']['sha']
+    base, head = prev_curr(context)
 
     # run git diff
     diff = subprocess.run(['git', 'diff', base, head, '--name-status'], capture_output=True, text=True).stdout
     diff = [e.split('\t') for e in diff.split('\n') if len(e) > 0]
 
     return diff
+
 
 def get_new_modified(diff):
     new_and_modified = [e[1] for e in diff if e[0] in ['A', 'M']]
