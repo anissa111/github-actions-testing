@@ -13,7 +13,7 @@ def prev_curr(context):
     elif context['event_name'] == 'pull_request':
         return context['event']['pull_request']['base']['sha'], context['event']['pull_request']['head']['sha']
     else:
-        return None, None
+        raise ValueError('Event type not supported')
 
 
 def get_diff(context):
