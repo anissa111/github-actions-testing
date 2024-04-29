@@ -12,16 +12,16 @@ body:
   - type: input
     id: version
     attributes:
-      label: Version
-      description: What version of geocat-comp are you running?
+      label: "Version"
+      description: "What version of geocat-comp are you running?"
       placeholder: "v2024.01.0"
     validations:
       required: true
 
   - type: dropdown
-    id: installation-method
+    id: installation
     attributes:
-      label: How did you install geocat-comp?
+      label: "How did you install geocat-comp?"
       multiple: false
       options:
         - conda-forge
@@ -35,8 +35,8 @@ body:
   - type: input
     id: os
     attributes:
-      label: Operating System
-      description: What operating system are you using?
+      label: "Operating System"
+      description: "What operating system are you using?"
       placeholder: "Example: macOS Big Sur"
     validations:
       required: true
