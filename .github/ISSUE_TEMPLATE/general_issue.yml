@@ -1,7 +1,7 @@
 name: 📝 Issue
 description: General issue that's not a bug report
-title: '[Issue]: '
-labels: ['triage']
+title: "[Issue]: "
+labels: ["triage"]
 
 body:
   - type: markdown

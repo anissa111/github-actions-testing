@@ -1,8 +1,8 @@
 name: Release request
 description: Request a new release of geocat-comp
-title: '[Release]: vYYYY.MM.##'
-labels: ['release', 'high-priority']
-assignees: 'anissa111'
+title: "[Release]: vYYYY.MM.##"
+labels: ["release", "high-priority"]
+assignees: "anissa111"
 
 body:
   - type: input
