@@ -1,6 +1,6 @@
 name: Release request
 description: Request a new release of geocat-comp
-title: '[Release]: <version-number>'
+title: '[Release]: vYYYY.MM.##'
 labels: ['release', 'high-priority']
 assignees: 'anissa111'
 
@@ -10,6 +10,8 @@ body:
     attributes:
       label: Version
       placeholder: "vYYYY.MM.##"
+    validations:
+      required: true
 
   - type: textarea
     id: summary
@@ -23,6 +25,7 @@ body:
     id: checklist
     attributes:
       label: "Release progress checklist"
+      description: "After submitting this issue, please check off each item as it is completed."
       options:
         - label: release-notes.rst has been updated with latest release notes, version, and release date
         - label: CI tests are passing
