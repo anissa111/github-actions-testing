@@ -1,7 +1,7 @@
 name: 💡 Feature request
 description: Suggest an idea for this project
 title: "[💡]: "
-labels: ["feature", "support", "triage"]
+labels: ["support", "triage"]
 
 body:
   - type: markdown
@@ -11,7 +11,7 @@ body:
   - type: textarea
     id: summary
     attributes:
-      label: "Describe the functionality you are requesting, linking any relevant usage or previous implementations in the python ecosystem or otherwise."
+      label: "Describe the addition you would like to see."
       description: "the more information the better!"
     validations:
       required: true

@@ -10,29 +10,6 @@ body:
         Thanks for taking the time to fill out this bug report!
 
   - type: input
-    id: version
-    attributes:
-      label: "Version"
-      description: "What version of geocat-comp are you running?"
-      placeholder: "v2024.01.0"
-    validations:
-      required: true
-
-  - type: dropdown
-    id: installation
-    attributes:
-      label: "How did you install geocat-comp?"
-      multiple: false
-      options:
-        - conda-forge
-        - pip
-        - source
-        - pre-made maintained environment
-        - other (please explain in your summary below)
-    validations:
-      required: true
-
-  - type: input
     id: os
     attributes:
       label: "Operating System"
